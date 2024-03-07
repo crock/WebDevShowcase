@@ -1,6 +1,9 @@
-# WorkSauce
+# WorkSauce - Custom SSG Demo
 
-Showcase and archive of the top-ranked web developer portfolios as indexed by Google
+WorkSauce is a showcase and archive of the top-ranked web developer portfolios as indexed by Google. 
+
+_This project is a demonstration of how to build a static site generator (SSG) from scratch using Python._
+
 
 ## Pre-Requisites
 
