@@ -1,0 +1,32 @@
+# External dependencies
+node_modules
+vendor
+
+# Dependency Lock files
+*.lock
+
+# Useless macOS file
+.DS_Store
+
+# Logs
+*.log
+
+# Environment Variables
+.env*
+!.env.example
+
+# editor configurations
+.idea/
+.vscode/
+.atom/
+.nova/
+
+webscreenshots_failed.txt
+
+# python virtualenv
+venv/
+
+# publish directory
+www/
+data/
+screenshots/
