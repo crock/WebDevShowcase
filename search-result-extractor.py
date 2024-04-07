@@ -1,3 +1,4 @@
+#!./venv/bin/python3
 import requests
 import bs4
 import urllib.parse

@@ -1,5 +1,6 @@
-import sys
+#!./venv/bin/python3
 import os
+import sys
 import time
 from datetime import datetime
 
@@ -35,10 +36,10 @@ def main():
             os.system(f"{binPath} -i data/{datestamp}-domains.txt -r phantomjs --renderer-binary bin/phantomjs -o screenshots/{datestamp} --crop '0,0,1280,720' -f 'jpg' -v")
 
         print(f"Generating site for {datestamp}...")
-        os.system(f"python3 site-generator.py {datestamp}")
+        os.system(f"./site-generator.py {datestamp}")
 
     endTime = time.time()
-    print(f"Build completed in {endTime - startTime} seconds")
+    print(f"Build completed in {endTime - startTime} seconds.")
 
 
 if __name__ == '__main__':

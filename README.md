@@ -38,6 +38,6 @@ On macOS, you can install it through downloading and installing the [XQuartz](ht
 These don't need to be run manually, but are here for reference.
 
 ```bash
-venv/bin/webscreenshot -i data/20230131-domains.txt -r phantomjs --renderer-binary bin/phantomjs -o screenshots/20230131 --crop "0,0,1280,720" -f "jpg" -v
+venv/bin/webscreenshot -i data/20240407-domains.txt -r phantomjs --renderer-binary bin/phantomjs -o screenshots/20240407 --crop "0,0,1280,720" -f "jpg" -v
 ```
 

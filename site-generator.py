@@ -1,8 +1,12 @@
+#!./venv/bin/python3
 import json
 import re
 import os
 import sys
 from datetime import datetime
+from pybars import Compiler
+
+compiler = Compiler()
 
 if len(sys.argv) > 1:
     now = sys.argv[1]
@@ -149,21 +153,9 @@ def get_datestamps():
     
 
 def create_directory_listing(sites):
-        datestamps = get_datestamps()
-        html = f"""
-<h1>Dev Portfolio Showcase</h1>
-<p>Last Crawled: {now}</p>
-<p>Total websites in showcase: {len(sites)}</p>
-<p>View previous crawls:</p>
-<ul class="previous-crawls">
-"""
-
-        for datestamp in datestamps:
-            html += f"""
-<li><a href="/{datestamp}">{datestamp}</a></li>
-"""
+        html = inject_header(sites)
+        html += inject_crawls()
         html += """
-</ul>
 <ul class="grid sites">
 """
         for site in sites:
@@ -175,7 +167,7 @@ def create_directory_listing(sites):
             html += f"""
 <li class="soft-shadow site-card">
 <div class="img-preview">
-    <a href="{get_screenshot_public_path(site)}" target="_blank" style="{"display:none" if not os.path.exists( f"www/img/{now}/http_{domain}_80.jpg" ) else "display:block"}">
+    <a href="{get_screenshot_public_path(site)}" target="_blank" style="{"display:none" if not os.path.exists( f"./www/img/{now}/http_{domain}_80.jpg" ) else "display:block"}">
         <img src="/assets/expand-arrow.png" alt="View full size preview" width={24} />
     </a>
     <img class="preview" src="{get_thumbnail_public_path(site)}" alt="{domain} screenshot thumbnail" width="512" />
@@ -195,21 +187,9 @@ def create_directory_listing(sites):
             print(f"Created directory index at {outputPath}") 
 
 def create_index_page(sites):
-    datestamps = get_datestamps()
-
-    html = f"""
-<h1>Dev Portfolio Showcase</h1>
-<p>Last Crawled: {now}</p>
-<p>Total websites in showcase: {len(sites)}</p>
-<p>View previous crawls:</p>
-<ul class="previous-crawls">
-"""
-    for datestamp in datestamps:
-        html += f"""
-<li><a href="/{datestamp}">{datestamp}</a></li>
-"""
+    html = inject_header(sites)
+    html += inject_crawls()
     html += """
-</ul>
 <ul class="grid sites">
 """
     for site in sites:
@@ -221,7 +201,7 @@ def create_index_page(sites):
         html += f"""
 <li class="soft-shadow site-card">
     <div class="img-preview">
-        <a href="{get_screenshot_public_path(site)}" target="_blank" style="{"display:none" if not os.path.exists( f"www/img/{now}/http_{domain}_80.jpg" ) else "display:block"}">
+        <a href="{get_screenshot_public_path(site)}" target="_blank" style="{"display:none" if not os.path.exists( f"./www/img/{now}/http_{domain}_80.jpg" ) else "display:block"}">
             <img src="/assets/expand-arrow.png" alt="View full size preview" width={24} />
         </a>
         <img class="preview" src="{get_thumbnail_public_path(site)}" alt="{domain} screenshot thumbnail" width="512" />
@@ -238,6 +218,28 @@ def create_index_page(sites):
     with open("www/index.html", "w") as f:
         f.write(pageContent)
         print(f"Created homepage at www/index.html")
+
+
+def inject_header(sites):
+    with open("./components/header.hbs") as f:
+        contents = f.read()
+        template = compiler.compile(contents)
+        return template({
+            "title": "WorkSauce",
+            "description": "Showcase and archive of the top-ranked web developer portfolios as indexed by Google",
+            "now": now,
+            "total": len(sites)
+        })
+    
+def inject_crawls():
+    datestamps = get_datestamps()
+    with open("./components/previous-crawls.hbs") as f:
+        contents = f.read()
+        template = compiler.compile(contents)
+        return template({
+            "crawls": datestamps
+        })
+
 
 def main():
     path = os.path.join("data", f"{now}-sites.json")

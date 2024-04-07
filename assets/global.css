@@ -101,7 +101,7 @@ h1 {
     font-size: 0.8rem;
 }
 
-.previous-crawls {
+.crawls ul {
     display: inline-flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -110,11 +110,11 @@ h1 {
     list-style: none;
 }
 
-.previous-crawls li {
+.crawls ul li {
     margin-right: 0.5rem;
 }
 
-.previous-crawls li a {
+.crawls ul li a {
     display: inline-block;
     padding: 0.5rem;
     background-color: #7b7b7b;
