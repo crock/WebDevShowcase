@@ -74,7 +74,7 @@ def generate_disqus_html(site):
     var disqus_config = function () {
 """
     html += f"""
-    this.page.url = "https://worksauce.com/{now}/{domain}";  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.url = "https://webdevshowcase.croc.io/{now}/{domain}";  // Replace PAGE_URL with your page's canonical URL variable
     this.page.identifier = "{domain}"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 """
     html += """
@@ -225,7 +225,7 @@ def inject_header(sites):
         contents = f.read()
         template = compiler.compile(contents)
         return template({
-            "title": "WorkSauce",
+            "title": "Web Dev Showcase",
             "description": "Showcase and archive of the top-ranked web developer portfolios as indexed by Google",
             "now": now,
             "total": len(sites)
